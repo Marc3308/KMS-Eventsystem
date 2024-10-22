@@ -1,0 +1,10 @@
+name: eventsystem
+version: '${project.version}'
+main: me.marc3308.kmseventsystem.Eventsystem
+api-version: '1.21'
+
+commands:
+  saveevents:
+    description: saves the events
+  loadevents:
+    description: load the events
