@@ -8,19 +8,15 @@ public class eventzone {
     private Location loc1;
     private Location loc2;
     private Integer Time;
-    private Boolean TP;
     private Location TpLock;
-    private Double Schaden;
     private String Sound;
 
-    public eventzone(String Name, Location loc1, Location loc2, int Time, boolean Tp, Location TpLockation, double Schaden, String Sound){
+    public eventzone(String Name, Location loc1, Location loc2, Integer Time, Location TpLockation, String Sound){
         this.Name=Name;
         this.loc1=loc1;
         this.loc2=loc2;
         this.Time=Time;
-        this.TP=Tp;
         this.TpLock=TpLockation;
-        this.Schaden=Schaden;
         this.Sound=Sound;
     }
 
@@ -39,20 +35,35 @@ public class eventzone {
     public Integer getTime() {
         return Time;
     }
-
-    public Boolean getTP() {
-        return TP;
-    }
-
     public Location getTpLock() {
         return TpLock;
     }
 
-    public Double getSchaden() {
-        return Schaden;
-    }
-
     public String getSound() {
         return Sound;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setLoc1(Location loc1) {
+        this.loc1 = loc1;
+    }
+
+    public void setLoc2(Location loc2) {
+        this.loc2 = loc2;
+    }
+
+    public void setTime(Integer time) {
+        Time = time;
+    }
+
+    public void setTpLock(Location tpLock) {
+        TpLock = tpLock;
+    }
+
+    public void setSound(String sound) {
+        Sound = sound;
     }
 }

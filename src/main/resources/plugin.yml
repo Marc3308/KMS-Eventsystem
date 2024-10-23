@@ -8,3 +8,6 @@ commands:
     description: saves the events
   loadevents:
     description: load the events
+  event:
+    description: create/edit/delete event zones
+

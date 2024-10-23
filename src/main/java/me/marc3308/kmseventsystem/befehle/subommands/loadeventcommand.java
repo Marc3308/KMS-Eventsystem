@@ -1,26 +1,34 @@
-package me.marc3308.kmseventsystem.befehle;
+package me.marc3308.kmseventsystem.befehle.subommands;
 
+import me.marc3308.kmseventsystem.befehle.subcommand;
 import me.marc3308.kmseventsystem.objekts.eventzone;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
-
-import static me.marc3308.kmseventsystem.Eventsystem.zonenlist;
-
 
 import java.io.File;
 
-public class loadevents implements CommandExecutor {
+import static me.marc3308.kmseventsystem.Eventsystem.zonenlist;
+
+public class loadeventcommand extends subcommand {
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player)return false;
+    public String getName() {
+        return "load";
+    }
 
+    @Override
+    public String getDescription() {
+        return "loads the liste from yml";
+    }
 
+    @Override
+    public String getSyntax() {
+        return "/event load";
+    }
 
+    @Override
+    public void perform(Player p, String[] args) {
         //make the list from the YML
         File file = new File("plugins/KMS Plugins/Eventsystem","Eventzonen.yml");
         FileConfiguration con= YamlConfiguration.loadConfiguration(file);
@@ -38,6 +46,8 @@ public class loadevents implements CommandExecutor {
                     ,con.getLocation(i+".TpLocation")
                     ,con.getString(i+".Sound")));
         }
-        return false;
+        p.sendMessage(ChatColor.DARK_GREEN+"Liste wurde erfolgreich geladen: ");
+        if(zonenlist.isEmpty())return;
+        for (eventzone ev : zonenlist)p.sendMessage(ChatColor.DARK_GREEN+""+zonenlist.indexOf(ev)+": "+ChatColor.GREEN+ev.getName());
     }
 }

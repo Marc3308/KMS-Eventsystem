@@ -1,9 +1,11 @@
 package me.marc3308.kmseventsystem;
 
+import me.marc3308.kmseventsystem.befehle.CommandManager;
 import me.marc3308.kmseventsystem.befehle.loadevents;
 import me.marc3308.kmseventsystem.befehle.saveevents;
 import me.marc3308.kmseventsystem.objekts.eventzone;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,12 +14,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.ArrayList;
 
+import static me.marc3308.kmseventsystem.utilitys.ineventsone;
+
 public final class Eventsystem extends JavaPlugin {
 
     public static ArrayList<eventzone> zonenlist=new ArrayList<>();
+    public static Eventsystem plugin;
+
 
     @Override
     public void onEnable() {
+
+
+        plugin=this;
+
         //runner
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
@@ -26,7 +36,20 @@ public final class Eventsystem extends JavaPlugin {
                 for (Player p : Bukkit.getOnlinePlayers()){
 
                     //start logic
+                    if(ineventsone(p.getLocation())!=-1){
 
+                        eventzone ev=zonenlist.get(ineventsone(p.getLocation()));
+
+                        //time
+                        if(ev.getTime()!=null){
+                            p.setPlayerTime(ev.getTime(),false);
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {if(ineventsone(p.getLocation())==-1)p.resetPlayerTime();}, 60L);
+                        }
+                        if(ev.getTpLock()!=null)p.teleport(ev.getTpLock());
+                        if(ev.getSound()!=null)p.playSound(p.getLocation(),Sound.valueOf(ev.getSound()),1,1);
+
+
+                    }
                 }
             }
         },0,20*2);
@@ -43,14 +66,13 @@ public final class Eventsystem extends JavaPlugin {
                     ,con.getLocation(i+".loc1")
                     ,con.getLocation(i+".loc2")
                     ,con.getInt(i+".Time")
-                    ,con.getBoolean(i+".Tp")
                     ,con.getLocation(i+".TpLocation")
-                    ,con.getDouble(i+".Schaden")
                     ,con.getString(i+".Sound")));
         }
 
 
         //commands
+        getCommand("event").setExecutor(new CommandManager());
         getCommand("saveevents").setExecutor(new saveevents());
         getCommand("loadevents").setExecutor(new loadevents());
 

@@ -26,9 +26,7 @@ public class utilitys {
             con.set(zonenlist.indexOf(s)+".loc1",s.getLoc1());
             con.set(zonenlist.indexOf(s)+".loc2",s.getLoc2());
             con.set(zonenlist.indexOf(s)+".Time",s.getTime());
-            con.set(zonenlist.indexOf(s)+".Tp",s.getTP());
             con.set(zonenlist.indexOf(s)+".TpLocation",s.getTpLock());
-            con.set(zonenlist.indexOf(s)+".Schaden",s.getSchaden());
             con.set(zonenlist.indexOf(s)+".Sound",s.getSound());
         }
 
