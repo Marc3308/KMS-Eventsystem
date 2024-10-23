@@ -45,7 +45,7 @@ public class utilitys {
             double miny = s.getLoc1().getY()<s.getLoc2().getY() ? s.getLoc1().getY() : s.getLoc2().getY();
             double minz = s.getLoc1().getZ()<s.getLoc2().getZ() ? s.getLoc1().getZ() : s.getLoc2().getZ();
             double maxx = s.getLoc1().getX()>s.getLoc2().getX() ? s.getLoc1().getX() : s.getLoc2().getX();
-            double maxy = s.getLoc1().getY()<s.getLoc2().getY() ? s.getLoc1().getY() : s.getLoc2().getY();
+            double maxy = s.getLoc1().getY()>s.getLoc2().getY() ? s.getLoc1().getY() : s.getLoc2().getY();
             double maxz = s.getLoc1().getZ()>s.getLoc2().getZ() ? s.getLoc1().getZ() : s.getLoc2().getZ();
 
             if(minx<=loc.getX() && maxx>=loc.getX()

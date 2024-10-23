@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static me.marc3308.kmseventsystem.Eventsystem.zonenlist;
+import static me.marc3308.kmseventsystem.befehle.CommandManager.subcommandlist;
 
 public class infocommand extends subcommand {
     @Override
@@ -39,13 +40,20 @@ public class infocommand extends subcommand {
             loc2.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/tp "+ev.getLoc2().getX() +" "+ev.getLoc2().getY()+ " "+ ev.getLoc2().getZ()));
             p.sendMessage(loc2);
             p.sendMessage(ChatColor.DARK_GREEN+"Time: "+ChatColor.GREEN+ev.getTime());
-            TextComponent loc3=new TextComponent(ChatColor.DARK_GREEN+"Tp Location: "+ChatColor.YELLOW+"["+(int) ev.getTpLock().getX()+"x "+(int) ev.getTpLock().getY()+"y "+(int) ev.getTpLock().getZ()+"z ]");
-            loc3.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/tp "+ev.getTpLock().getX() +" "+ev.getTpLock().getY()+ " "+ ev.getTpLock().getZ()));
-            p.sendMessage(loc3);
+            if(ev.getTpLock()!=null){
+                TextComponent loc3=new TextComponent(ChatColor.DARK_GREEN+"Tp Location: "+ChatColor.YELLOW+"["+(int) ev.getTpLock().getX()+"x "+(int) ev.getTpLock().getY()+"y "+(int) ev.getTpLock().getZ()+"z ]");
+                loc3.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/tp "+ev.getTpLock().getX() +" "+ev.getTpLock().getY()+ " "+ ev.getTpLock().getZ()));
+                p.sendMessage(loc3);
+            } else {
+                p.sendMessage(ChatColor.DARK_GREEN+"Tp Location: "+ChatColor.GREEN+ev.getTpLock());
+            }
             p.sendMessage(ChatColor.DARK_GREEN+"Sound: "+ChatColor.GREEN+ev.getSound());
             p.sendMessage(ChatColor.DARK_GREEN+"---------------------------");
-
-
+            return;
         }
+        p.sendMessage(ChatColor.DARK_GREEN+"------------Info-----------");
+        for (subcommand s : subcommandlist)p.sendMessage(ChatColor.DARK_GREEN+s.getName()+": "+ChatColor.GREEN+s.getSyntax());
+        p.sendMessage(ChatColor.DARK_GREEN+"---------------------------");
+
     }
 }

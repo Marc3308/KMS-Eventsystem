@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static me.marc3308.kmseventsystem.utilitys.ineventsone;
+import static me.marc3308.kmseventsystem.utilitys.savepoints;
 
 public final class Eventsystem extends JavaPlugin {
 
@@ -80,6 +81,6 @@ public final class Eventsystem extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        savepoints();
     }
 }

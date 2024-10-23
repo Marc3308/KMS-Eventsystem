@@ -45,10 +45,10 @@ public class editcommand extends subcommand {
                         ev.setTime(args[3].equals("remove") ? null : Integer.valueOf(args[3]));
                         break;
                     case "TpPunkt":
-                        ev.setTpLock(new Location(p.getWorld(),Integer.valueOf(args[3]),Integer.valueOf(args[4]),Integer.valueOf(args[5])));
+                        ev.setTpLock(args[3].equals("remove") ? null : new Location(p.getWorld(),Integer.valueOf(args[3]),Integer.valueOf(args[4]),Integer.valueOf(args[5])));
                         break;
                     case "Sound":
-                        ev.setSound(args[3]);
+                        ev.setSound(args[3].equals("remove") ? null : args[3]);
                         break;
                     default:
                         p.sendMessage(ChatColor.RED+"Did not Find "+args[2]);

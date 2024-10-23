@@ -62,8 +62,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         ArrayList<String> list =new ArrayList<>();
         if(!p.isOp())return list;
 
-        //event edit name Tp x y z
-
         try {
             if(args.length == 0)return list;
             if(args.length == 1)for (subcommand sub : subcommandlist)list.add(sub.getName().toString());
@@ -99,9 +97,11 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                         list.add("18000");
                         break;
                     case "Sound":
+                        list.add("remove");
                         for (Sound s : Sound.values())list.add(s.toString());
                         break;
                     default:
+                        if(args[2].equals("TpPunkt"))list.add("remove");
                         list.add(p.getLocation().getBlockX()+" "+p.getLocation().getBlockY()+" "+p.getLocation().getBlockZ());
                         break;
                 }
