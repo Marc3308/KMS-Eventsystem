@@ -5,6 +5,7 @@ import me.marc3308.kmseventsystem.befehle.loadevents;
 import me.marc3308.kmseventsystem.befehle.saveevents;
 import me.marc3308.kmseventsystem.objekts.eventzone;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,6 +21,7 @@ import static me.marc3308.kmseventsystem.utilitys.savepoints;
 public final class Eventsystem extends JavaPlugin {
 
     public static ArrayList<eventzone> zonenlist=new ArrayList<>();
+
     public static Eventsystem plugin;
 
 
@@ -37,14 +39,14 @@ public final class Eventsystem extends JavaPlugin {
                 for (Player p : Bukkit.getOnlinePlayers()){
 
                     //start logic
-                    if(ineventsone(p.getLocation())!=-1){
+                    if(ineventsone(p.getLocation())!=-1 && p.getGameMode().equals(GameMode.SURVIVAL)){
 
                         eventzone ev=zonenlist.get(ineventsone(p.getLocation()));
 
                         //time
                         if(ev.getTime()!=null){
                             p.setPlayerTime(ev.getTime(),false);
-                            Bukkit.getScheduler().runTaskLater(plugin, () -> {if(ineventsone(p.getLocation())==-1)p.resetPlayerTime();}, 60L);
+                            Bukkit.getScheduler().runTaskLater(plugin, () -> {if(ineventsone(p.getLocation())==-1 || ev.getTime()==null)p.resetPlayerTime();}, 60L);
                         }
                         if(ev.getTpLock()!=null)p.teleport(ev.getTpLock());
                         if(ev.getSound()!=null)p.playSound(p.getLocation(),Sound.valueOf(ev.getSound()),1,1);
@@ -53,7 +55,7 @@ public final class Eventsystem extends JavaPlugin {
                     }
                 }
             }
-        },0,20*2);
+        },0,5);
 
         //make the list from the YML
         File file = new File("plugins/KMS Plugins/Eventsystem","Eventzonen.yml");

@@ -2,7 +2,6 @@ package me.marc3308.kmseventsystem.befehle;
 
 import me.marc3308.kmseventsystem.befehle.subommands.*;
 import me.marc3308.kmseventsystem.objekts.eventzone;
-import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -11,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static me.marc3308.kmseventsystem.Eventsystem.zonenlist;
 
@@ -26,6 +24,7 @@ public class CommandManager implements CommandExecutor, TabCompleter {
         subcommandlist.add(new editcommand());
         subcommandlist.add(new loadeventcommand());
         subcommandlist.add(new savecommand());
+        subcommandlist.add(new versteckcommand());
     }
 
     @Override
@@ -50,6 +49,9 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             case "save":
                 subcommandlist.get(5).perform(p,args);
                 break;
+            case "Verstecken":
+                subcommandlist.get(6).perform(p,args);
+                break;
             default:
                 subcommandlist.get(0).perform(p,args);
         }
@@ -67,21 +69,31 @@ public class CommandManager implements CommandExecutor, TabCompleter {
             if(args.length == 1)for (subcommand sub : subcommandlist)list.add(sub.getName().toString());
             if(args.length >= 2 && (args[0].equals("save") || args[0].equals("load")))return list;
             if(args.length >= 3 && (args[0].equals("create") || args[0].equals("delete") || args[0].equals("info")))return list;
+            if(args.length >= 4 && args[0].equals("Verstecken"))return list;
             if(args.length == 2){
                 if(args[0].equals("create")){
                     list.add("<Name>");
+                } else if(args[0].equals("Verstecken")){
+                    list.add("create");
+                    list.add("start");
+                    list.add("end");
                 } else {
                     if(zonenlist.isEmpty())return list;
                     for(eventzone ev : zonenlist)list.add(ev.getName());
                 }
             }
             if(args.length == 3){
-                list.add("Name");
-                list.add("Eckpunkt1");
-                list.add("Eckpunkt2");
-                list.add("Zeit");
-                list.add("TpPunkt");
-                list.add("Sound");
+
+                if(args[0].equals("Verstecken") && args[1].equals("start") ){
+                    list.add("<Sucher>");
+                } else {
+                    list.add("Name");
+                    list.add("Eckpunkt1");
+                    list.add("Eckpunkt2");
+                    list.add("Zeit");
+                    list.add("TpPunkt");
+                    list.add("Sound");
+                }
             }
             if(args.length==4){
                 switch (args[2]){

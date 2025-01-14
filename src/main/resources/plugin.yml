@@ -1,6 +1,7 @@
 name: eventsystem
 version: '${project.version}'
 main: me.marc3308.kmseventsystem.Eventsystem
+depend: [zerotrust]
 api-version: '1.21'
 
 commands:
@@ -10,4 +11,6 @@ commands:
     description: load the events
   event:
     description: create/edit/delete event zones
+  joinverstecken:
+    description: joins a open verstechspiel
 
